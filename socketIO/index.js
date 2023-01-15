@@ -8,8 +8,7 @@ const { updateCount } = require('./helpers/update')
 const startIO = (server) => {
     const io = new Server(server, {
         cors: {
-            origin: [`http://localhost:3000`, `https://hatch-front.vercel.app`]
-            // origin: `https://hatch-front.vercel.app`
+            origin: [`http://localhost:3000`, `https://hatch.najjar.dev`]
         }
     });
 
