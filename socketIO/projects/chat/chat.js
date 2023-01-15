@@ -4,7 +4,7 @@ const chat = (io, client, info) => {
 
         console.log(`${userInfo.user}: ${message}`)
 
-        io.to(userInfo.room).emit("receiveMessageRoom", message)
+        io.to(userInfo.room).emit("receiveMessageRoom", `${userInfo.user}: ${message}`)
     })
 }
 

@@ -8,8 +8,8 @@ const { updateCount } = require('./helpers/update')
 const startIO = (server) => {
     const io = new Server(server, {
         cors: {
-            // origin: `http://localhost:3000`
-            origin: `https://hatch-front.vercel.app`
+            origin: [`http://localhost:3000`, `https://hatch-front.vercel.app`]
+            // origin: `https://hatch-front.vercel.app`
         }
     });
 
@@ -21,7 +21,7 @@ const startIO = (server) => {
         const clientQuery = client.handshake.query
         console.log(`login attempt: u=${clientQuery.user} p=${clientQuery.pass} ...`)
         if (clientQuery.pass != "1") {
-            console.log(`failed`)
+            console.log(`failed. Abort`)
             next(new Error("User or Password incorrect! Please try Again"));
         } else {
             console.log("success! Going to connect...")
