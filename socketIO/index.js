@@ -32,10 +32,8 @@ const startIO = (server) => {
         const userQuery = client.handshake.query;
         console.log(`User "${userQuery.user}" Connected to the Server (${client.id})`)
         info.loggedUsers.push({
-            // loggedAt: new Date(),
             id: client.id,
-            user: userQuery.user,
-            room: userQuery.room
+            user: userQuery.user
         })
         updateCount(io, client, info)
 
