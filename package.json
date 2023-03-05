@@ -1,10 +1,11 @@
 {
-  "name": "mtg-back",
+  "name": "hatch-back",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/server.js",
-    "dev": "nodemon ./bin/server.js"
+    "dev": "nodemon ./bin/server.js",
+    "vercel-build": "node ./bin/server.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
