@@ -5,7 +5,7 @@ const updateCount = (io, client, info) => {
 
     io.emit("getServerUsersCount", info.loggedUsers.length)
 
-    if(userInfo.room) {
+    if(userInfo?.room) {
         io.to(userInfo.room).emit("getRoomUsersCount", getRoomUsers(userInfo.room, info))
         client.emit("getRoomUsersCount", getRoomUsers(userInfo.room, info))
     }

@@ -8,11 +8,12 @@ const connection = (io, client, info) => {
     // });
 
     client.on('disconnect', () => {
-        updateCount(io, client, info)
-
+        
         const userInfo = info.loggedUsers.find(user => user.id === client.id)
-
+        
         info.loggedUsers = info.loggedUsers.filter(user => user.id != client.id)
+        
+        updateCount(io, client, info)
 
         console.log(`User "${userInfo.user}" DISCONNECTED (${client.id})`)
     });
