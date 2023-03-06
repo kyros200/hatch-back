@@ -13,7 +13,13 @@ const startIO = (server) => {
     });
 
     const info = {
-        loggedUsers: []
+        loggedUsers: [],
+        tic: {
+            rooms: []
+        },
+        reg: {
+            rooms: []
+        }
     };
 
     io.use((client, next) => {

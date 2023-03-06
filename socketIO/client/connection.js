@@ -1,5 +1,5 @@
 const { getRoomUsers } = require('../helpers/room')
-const { updateCount } = require('../helpers/update')
+const { updateCount, updateRoomInfo } = require('../helpers/update')
 
 const connection = (io, client, info) => {
     // client.on('disconnecting', () => {
@@ -10,10 +10,21 @@ const connection = (io, client, info) => {
     client.on('disconnect', () => {
         
         const userInfo = info.loggedUsers.find(user => user.id === client.id)
+
+        let choosenProject
+        let newRoomIndex
+
+        if (userInfo?.room) {
+            choosenProject = userInfo?.room?.substring(0, 3)
+            newRoomIndex = info[choosenProject].rooms.map((room) => room.name).indexOf(userInfo?.room)
+            info[choosenProject].rooms[newRoomIndex].playersConnected--
+        }
         
         info.loggedUsers = info.loggedUsers.filter(user => user.id != client.id)
         
         updateCount(io, client, info)
+        if(choosenProject !== undefined && newRoomIndex !== undefined)
+        updateRoomInfo(io, info, choosenProject, newRoomIndex)
 
         console.log(`User "${userInfo.user}" DISCONNECTED (${client.id})`)
     });

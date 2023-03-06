@@ -26,6 +26,7 @@
     "node-cron": "^3.0.0",
     "objection": "^2.2.18",
     "socket.io": "^4.5.4",
+    "uuid": "^9.0.0",
     "ws": "^8.12.0"
   },
   "devDependencies": {
