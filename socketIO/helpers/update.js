@@ -1,4 +1,4 @@
-const { getRoomUsers } = require('./room')
+const { getRoomUsers, killRoom, changeRoomStatus } = require('./room')
 
 const updateCount = (io, client, info) => {
     const userInfo = info.loggedUsers.find(user => user.id === client.id)
@@ -15,14 +15,14 @@ const updateLobbies = (io, client, info) => {
     io.emit("updateLobbies")
 }
 
-const updateRoomInfo = (io, info, choosenProject, newRoomIndex) => {
-    if(info[choosenProject].rooms[newRoomIndex].playersConnected === info[choosenProject].rooms[newRoomIndex].playersMaximum)
-        info[choosenProject].rooms[newRoomIndex].status = "FULL"
-    else if(info[choosenProject].rooms[newRoomIndex].playersConnected === 0)
-        info[choosenProject].rooms.splice(newRoomIndex, 1)
-    else if(info[choosenProject].rooms[newRoomIndex].playersConnected < info[choosenProject].rooms[newRoomIndex].playersMaximum)
-        info[choosenProject].rooms[newRoomIndex].status = "OPEN"
+const updateRoomStatus = (io, info, choosenProject, roomIndex) => {
+    if(info[choosenProject].rooms[roomIndex].playersConnected === info[choosenProject].rooms[roomIndex].playersMaximum)
+        changeRoomStatus(info, choosenProject, roomIndex, "FULL")
+    else if(info[choosenProject].rooms[roomIndex].playersConnected === 0)
+        killRoom(info, choosenProject, roomIndex)
+    else if(info[choosenProject].rooms[roomIndex].playersConnected < info[choosenProject].rooms[roomIndex].playersMaximum)
+        changeRoomStatus(info, choosenProject, roomIndex, "OPEN")
     io.emit("updateLobbies")
 }
 
-module.exports = {updateCount, updateLobbies, updateRoomInfo};
+module.exports = {updateCount, updateLobbies, updateRoomStatus};

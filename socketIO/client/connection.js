@@ -1,5 +1,5 @@
 const { getRoomUsers } = require('../helpers/room')
-const { updateCount, updateRoomInfo } = require('../helpers/update')
+const { updateCount, updateRoomStatus } = require('../helpers/update')
 
 const connection = (io, client, info) => {
     // client.on('disconnecting', () => {
@@ -24,7 +24,7 @@ const connection = (io, client, info) => {
         
         updateCount(io, client, info)
         if(choosenProject !== undefined && newRoomIndex !== undefined)
-        updateRoomInfo(io, info, choosenProject, newRoomIndex)
+        updateRoomStatus(io, info, choosenProject, newRoomIndex)
 
         console.log(`User "${userInfo.user}" DISCONNECTED (${client.id})`)
     });

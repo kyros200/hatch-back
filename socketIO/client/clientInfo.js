@@ -1,7 +1,8 @@
+const { getUserInfo } = require("../helpers/user")
+
 const clientInfo = (io, client, info) => {
-    client.on('getClientInfo', () => {
-        const userInfo = info.loggedUsers.find(user => user.id === client.id)
-        client.emit("ReceiveClientInfo", userInfo)
+    client.on('getClientInfo', (cb) => {
+        cb(getUserInfo(client, info))
     })
 }
 

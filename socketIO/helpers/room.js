@@ -4,9 +4,17 @@ const getRoomUsers = (room, info) => {
     return count;
 }
 
+const killRoom = (info, project, index) => {
+    info[project].rooms.splice(index, 1)
+}
+
+const changeRoomStatus = (info, project, index, status) => {
+    info[project].rooms[index].status = status
+}
+
 const getMaximumPlayers = (choosenProject) => {
     if(choosenProject === "tic") return 2
     else if(choosenProject === "reg") return 1
 }
 
-module.exports = {getRoomUsers, getMaximumPlayers};
+module.exports = {getRoomUsers, getMaximumPlayers, killRoom, changeRoomStatus};
