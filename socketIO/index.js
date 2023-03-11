@@ -1,7 +1,7 @@
 const {Server} = require('socket.io');
-const { connection } = require('./client/connection')
-const { clientInfo } = require('./client/clientInfo')
-const { clientActions } = require('./client/clientActions')
+const { connectionEvents } = require('./events/connectionEvents')
+const { clientInfoEvents } = require('./events/clientInfoEvents')
+const { roomEvents } = require('./events/roomEvents')
 const { chat } = require('./projects/chat/chat')
 const { updateCount } = require('./helpers/update')
 
@@ -36,17 +36,23 @@ const startIO = (server) => {
     
     io.on("connection", (client) => {
         const userQuery = client.handshake.query;
+
         console.log(`User "${userQuery.user}" Connected to the Server (${client.id})`)
+
         info.loggedUsers.push({
             id: client.id,
             user: userQuery.user
         })
+
+        //update count to server
         updateCount(io, client, info)
 
-        connection(io, client, info)
-        clientInfo(io, client, info)
-        clientActions(io, client, info)
-        
+        //get events
+        connectionEvents(io, client, info)
+        clientInfoEvents(io, client, info)
+        roomEvents(io, client, info)
+
+        //get events specific from projects & chat
         chat(io, client, info)
     });
 

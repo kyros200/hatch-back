@@ -1,6 +1,8 @@
+const { getUserInfo } = require('../../helpers/user')
+
 const chat = (io, client, info) => {
-    client.on('sendChat', ({message, channel , toUser}) => {
-        const userInfo = info.loggedUsers.find(user => user.id === client.id)
+    client.on('sendChat', ({message, channel, toUser}) => {
+        const userInfo = getUserInfo(client, info)
 
         console.log(`${userInfo.user}: ${message}`)
 
@@ -16,4 +18,4 @@ const chat = (io, client, info) => {
     })
 }
 
-module.exports = {chat};
+module.exports = { chat };

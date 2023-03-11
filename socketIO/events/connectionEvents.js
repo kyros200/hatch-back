@@ -1,7 +1,7 @@
 const { getRoomUsers } = require('../helpers/room')
 const { updateCount, updateRoomStatus } = require('../helpers/update')
 
-const connection = (io, client, info) => {
+const connectionEvents = (io, client, info) => {
     // client.on('disconnecting', () => {
     // console.log(`User DISCONNECTING with ID: ${client.id}`)
     // remove from rooms? chat to say its logging out?
@@ -28,16 +28,6 @@ const connection = (io, client, info) => {
 
         console.log(`User "${userInfo.user}" DISCONNECTED (${client.id})`)
     });
-
-    client.on('getServerUsersCount', () => {
-        client.emit("getServerUsersCount", info.loggedUsers.length)
-    })
-
-    client.on('getRoomUsersCount', () => {
-        const userInfo = info.loggedUsers.find(user => user.id === client.id)
-
-        io.to(userInfo.room).emit("getRoomUsersCount", getRoomUsers(userInfo.room, info))
-    })
 }
 
-module.exports = {connection};
+module.exports = {connectionEvents};

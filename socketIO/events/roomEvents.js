@@ -3,7 +3,7 @@ const { v4 }  = require("uuid")
 const { updateCount, updateRoomStatus } = require("../helpers/update")
 const { getUserInfo } = require("../helpers/user")
 
-const clientActions = (io, client, info) => {
+const roomEvents = (io, client, info) => {
     client.on('joinRoom', (name, cb) => {
         client.join(name)
 
@@ -53,4 +53,4 @@ const clientActions = (io, client, info) => {
     });
 }
 
-module.exports = {clientActions};
+module.exports = {roomEvents};
