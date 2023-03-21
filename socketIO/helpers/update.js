@@ -25,4 +25,9 @@ const updateRoomStatus = (io, info, choosenProject, roomIndex) => {
     io.emit("updateLobbies")
 }
 
-module.exports = {updateCount, updateLobbies, updateRoomStatus};
+const updateRoomLeavingCountToOthers = (io, info, choosenProject, roomIndex) => {
+    const roomName = info[choosenProject].rooms[roomIndex]?.name
+    io.to(roomName).emit("getRoomUsersCount", getRoomUsers(roomName, info))
+}
+
+module.exports = {updateCount, updateLobbies, updateRoomStatus, updateRoomLeavingCountToOthers};

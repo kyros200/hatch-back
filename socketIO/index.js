@@ -2,6 +2,7 @@ const {Server} = require('socket.io');
 const { connectionEvents } = require('./events/connectionEvents')
 const { clientInfoEvents } = require('./events/clientInfoEvents')
 const { roomEvents } = require('./events/roomEvents')
+const { gameEvents } = require('./events/gameEvents')
 const { chat } = require('./projects/chat/chat')
 const { updateCount } = require('./helpers/update')
 
@@ -51,6 +52,7 @@ const startIO = (server) => {
         connectionEvents(io, client, info)
         clientInfoEvents(io, client, info)
         roomEvents(io, client, info)
+        gameEvents(io, client, info)
 
         //get events specific from projects & chat
         chat(io, client, info)
