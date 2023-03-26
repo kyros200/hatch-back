@@ -29,8 +29,12 @@ const roomEvents = (io, client, info) => {
         cb(name)
     })
 
-    client.on('leaveRoom', (name, cb) => {
+    client.on('leaveRoom', (name, isHost, cb) => {
         client.leave(name)
+        if(isHost) {
+            //Close Room, force others in room to exit
+            io.to(getUserInfo(client, info).room).emit("forcedLeaveRoom")
+        }
 
         // updating user room to server
         let newLoggedUsers = []
@@ -46,9 +50,13 @@ const roomEvents = (io, client, info) => {
 
         //updating room count to server
         const choosenProject = name.substring(0, 3)
-        if (!choosenProject) cb(false)
+        if (!choosenProject) 
+            cb(false)
+
         let newRoomIndex = info[choosenProject].rooms.map((room) => room.name).indexOf(name)
-        info[choosenProject].rooms[newRoomIndex].playersConnected--
+
+        if(info[choosenProject].rooms[newRoomIndex])
+            info[choosenProject].rooms[newRoomIndex].playersConnected--
 
         updateRoomStatus(io, info, choosenProject, newRoomIndex)
         updateCount(io, client, info)

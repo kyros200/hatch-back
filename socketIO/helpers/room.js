@@ -9,7 +9,8 @@ const killRoom = (info, project, index) => {
 }
 
 const changeRoomStatus = (info, project, index, status) => {
-    info[project].rooms[index].status = status
+    if(info[project].rooms[index])
+        info[project].rooms[index].status = status
 }
 
 const getMinimumPlayers = (choosenProject) => {

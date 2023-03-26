@@ -16,11 +16,11 @@ const updateLobbies = (io, client, info) => {
 }
 
 const updateRoomStatus = (io, info, choosenProject, roomIndex) => {
-    if(info[choosenProject].rooms[roomIndex].playersConnected === info[choosenProject].rooms[roomIndex].playersMaximum)
+    if(info[choosenProject].rooms[roomIndex]?.playersConnected === info[choosenProject].rooms[roomIndex]?.playersMaximum)
         changeRoomStatus(info, choosenProject, roomIndex, "FULL")
-    else if(info[choosenProject].rooms[roomIndex].playersConnected === 0)
+    else if(info[choosenProject].rooms[roomIndex]?.playersConnected === 0)
         killRoom(info, choosenProject, roomIndex)
-    else if(info[choosenProject].rooms[roomIndex].playersConnected < info[choosenProject].rooms[roomIndex].playersMaximum)
+    else if(info[choosenProject].rooms[roomIndex]?.playersConnected < info[choosenProject].rooms[roomIndex]?.playersMaximum)
         changeRoomStatus(info, choosenProject, roomIndex, "OPEN")
     io.emit("updateLobbies")
 }
