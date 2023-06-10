@@ -4,6 +4,7 @@ const { clientInfoEvents } = require('./events/clientInfoEvents')
 const { roomEvents } = require('./events/roomEvents')
 const { gameEvents } = require('./events/gameEvents')
 const { chat } = require('./projects/chat/chat')
+const { tictactoe } = require('./projects/tictactoe/tictactoe')
 const { updateCount } = require('./helpers/update')
 
 const startIO = (server) => {
@@ -56,6 +57,7 @@ const startIO = (server) => {
 
         //get events specific from projects & chat
         chat(io, client, info)
+        tictactoe(io, client, info)
     });
 
 }
