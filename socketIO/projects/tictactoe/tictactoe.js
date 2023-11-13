@@ -41,7 +41,7 @@ const tictactoe = (io, client, info) => {
         }
 
         if(isFinished === "O" || isFinished === "X") {
-            newEvent += ` ${isFinished} won!`
+            newEvent += ` ${user.user} won!`
         }
 
         gameRoom.matchInfo.events.push({user, cell, roomName, message: newEvent})
